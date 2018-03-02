@@ -20,11 +20,21 @@ public class Download {
 	@ManyToOne
 	private User downloader;
 	
+	private float fileReputation;
+	
 	public Download(Long id, FileInfo file, User downloader) {
 		super();
 		this.id = id;
 		this.file = file;
 		this.downloader = downloader;
+	}
+	
+	public Download(Long id, FileInfo file, User downloader, Float fileReputation){
+		super();
+		this.id = id;
+		this.file = file;
+		this.downloader = downloader;
+		this.fileReputation = fileReputation;
 	}
 
 	public Download() {

@@ -5,6 +5,7 @@ import java.util.Random;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,6 +18,13 @@ import com.fileReputation2.model.User;
 
 public class DownloadRepositoryTest {
 
+	
+	@Value("${file_rating.NoOfUser}")
+	int NoOfUser;
+
+	@Value("${file_rating.NoOfFileType}")
+	int NoOfFileType;
+	
 	@Autowired
 	FileInfoRepository fileInfoRepository;
 	@Autowired
@@ -27,10 +35,8 @@ public class DownloadRepositoryTest {
 	@Test
 	public void testCreateDownloadFile() {
 
-		long NoOfFiles = 1000;
-		int NoOfFileType = 50;
-		int NoOfUser = 50;
-		int MaxNoDownload = 100;
+		long NoOfFiles = 500;
+		int MaxNoDownload = 25;
 		Random random = new Random();
 		for (long i = 1; i <= NoOfFiles; i++) {
 			

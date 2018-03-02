@@ -8,5 +8,6 @@ public class FileReputation2Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FileReputation2Application.class, args);
+		
 	}
 }
