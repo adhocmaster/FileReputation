@@ -19,5 +19,18 @@ public class Download {
 	
 	@ManyToOne
 	private User downloader;
+	
+	public Download(Long id, FileInfo file, User downloader) {
+		super();
+		this.id = id;
+		this.file = file;
+		this.downloader = downloader;
+	}
+
+	public Download() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 }

@@ -2,6 +2,7 @@ package com.fileReputation2.repository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,10 +18,14 @@ public class UserRepositoryTest {
 
 	@Test
 	public void testCreate1User() {
-
-		User user = new User( null, "Muktadir" );
 		
-		userRepository.save( user );
+		long NoOfUser = 50;
+		for(int i = 0;i < NoOfUser; i++){
+			User user = new User( null, "User_" + i );
+			userRepository.save( user );
+		}
+
+		
 		
 	}
 
