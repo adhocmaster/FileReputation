@@ -21,15 +21,18 @@ public class DownloaderRatingService {
 	FileInfoRepository fileInfoRepository;
 	
 	private float getUserReputation(long id,float currentDownloadFileReputation){
-		User user = userRepository.findOne(id);
-		List<FileInfo> downloadedFileList = new ArrayList<FileInfo>();
-		downloadedFileList = fileInfoRepository.findByDownloader(user);
-		float sumOfFileReputation = 0;
-		for(int i = 0; i< downloadedFileList.size(); i++){
-			FileInfo fileInfo = downloadedFileList.get(i);
-			sumOfFileReputation += fileInfo.getFileReputation();
-		}
-		
-		return (sumOfFileReputation + currentDownloadFileReputation) /(downloadedFileList.size() + 1);
+	    
+	    return ( float ) 0;
+	    
+//		User user = userRepository.findOne(id);
+//		List<FileInfo> downloadedFileList = new ArrayList<FileInfo>();
+//		downloadedFileList = fileInfoRepository.findByDownloader(user);
+//		float sumOfFileReputation = 0;
+//		for(int i = 0; i< downloadedFileList.size(); i++){
+//			FileInfo fileInfo = downloadedFileList.get(i);
+//			sumOfFileReputation += fileInfo.getFileReputation();
+//		}
+//		
+//		return (sumOfFileReputation + currentDownloadFileReputation) /(downloadedFileList.size() + 1);
 	}
 }

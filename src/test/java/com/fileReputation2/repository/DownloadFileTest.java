@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fileReputation2.model.FileInfo;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DownloadFileTest {
@@ -33,7 +35,7 @@ public class DownloadFileTest {
 	public void testFileDownload(){
 		random = new Random();
 		for(int i = 0; i< noOfDownload; i++){
-			FileInfo fileInfo = 
+			//FileInfo fileInfo = 
 		}
 		
 	}

@@ -11,6 +11,5 @@ public interface FileInfoRepository extends JpaRepository<FileInfo, Long>{
 
 	List<FileInfo> findByFileType(String FileType);
 	
-	List<FileInfo> findByDownloader(User user);
 	
 }
