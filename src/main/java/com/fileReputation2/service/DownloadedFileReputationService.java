@@ -22,8 +22,6 @@ public class DownloadedFileReputationService {
 	
 	private float getDownloaderReputation(long user_id){
 		User user = userRepository.getOne(user_id);
-		
-		
 		return 0;
 	}
 }
