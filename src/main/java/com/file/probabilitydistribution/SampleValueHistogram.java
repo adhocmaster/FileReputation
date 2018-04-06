@@ -1,5 +1,6 @@
 package com.file.probabilitydistribution;
 
+import java.awt.Font;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -8,6 +9,7 @@ import org.apache.commons.math3.distribution.ZipfDistribution;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -85,6 +87,13 @@ public class SampleValueHistogram extends ApplicationFrame {
 
 		ChartPanel chartPanel = new ChartPanel(barChart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+		
+		CategoryAxis domainAxis = barChart.getCategoryPlot().getDomainAxis();
+		Font domainFont = new Font( "Tahoma", Font.PLAIN, 5 );
+		domainAxis.setTickLabelFont(domainFont);
+		domainAxis.setLowerMargin( 0 );
+		domainAxis.setUpperMargin( 0 );
+		
 		setContentPane(chartPanel);
 
 	}
