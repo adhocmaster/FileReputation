@@ -33,8 +33,6 @@ public class ProbabilityDistributionViewer {
 	private JTextField param2;
 	private JTextField numOfSamples;
 	private JTextField numOfFile;
-	private final Action action = new SwingAction();
-
 	/**
 	 * Launch the application.
 	 */
@@ -149,6 +147,7 @@ public class ProbabilityDistributionViewer {
 		});
 		draw.setBounds(205, 173, 91, 23);
 		frame.getContentPane().add(draw);
+		RefineryUtilities.centerFrameOnScreen(frame);
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
