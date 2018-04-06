@@ -1,5 +1,5 @@
 package com.file.probabilitydistribution;
 
 enum Distribution{
-	Pareto, Zipf
+	Pareto, Zipf, Normal
 }

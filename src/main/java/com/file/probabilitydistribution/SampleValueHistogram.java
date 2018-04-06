@@ -7,7 +7,11 @@ import java.util.TreeMap;
 
 import javax.swing.JFrame;
 
+import org.apache.commons.math3.distribution.IntegerDistribution;
+import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.ParetoDistribution;
+import org.apache.commons.math3.distribution.PascalDistribution;
+import org.apache.commons.math3.distribution.RealDistribution;
 import org.apache.commons.math3.distribution.ZipfDistribution;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -23,11 +27,11 @@ public class SampleValueHistogram extends ApplicationFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static int numOfFile = 100;
-	private static int numOfSample = 1000;
-	private static double param1 = 1;
-	private static double param2 = 2;
-	private static JFrame frame = null;
+	private int numOfFile = 100;
+	private int numOfSample = 1000;
+	private double param1 = 1;
+	private double param2 = 2;
+	private JFrame frame = null;
 	
 	
 	public SampleValueHistogram( String applicationTitle, Distribution distribution ) {
@@ -48,15 +52,38 @@ public class SampleValueHistogram extends ApplicationFrame {
 		draw( distribution );
 	}
 
-	private CategoryDataset createDataset() {
+	private CategoryDataset createDataset( Distribution distribution ) {
 		
-		ZipfDistribution zipf = new ZipfDistribution( numOfFile, param2 );
+		if( distribution == Distribution.Zipf ) {
+			IntegerDistribution zipf = new ZipfDistribution( numOfFile, param2 );
+			return populateDataset( zipf );
+			
+		}
+		
+		RealDistribution real = null;
+		
+		if( distribution == Distribution.Pareto ) {
+			
+			real = new ParetoDistribution( param1, param2 );
+		}
+		else if( distribution == Distribution.Normal ) {
+			
+			real = new NormalDistribution( param1, param2 );
+		}
+		
+		return populateDataset( real );
+	}
+	
+	private DefaultCategoryDataset populateDataset( IntegerDistribution distro ) {
+		
 		Map<Integer, Integer> freq = new TreeMap<>();
-		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		for( int i = 1; i<=numOfSample; i++) {
 			
-			int rand = zipf.sample();
+			int rand = distro.sample(); 
+			if( rand < 0 ) rand *= -1;
+			
 			freq.put( rand, freq.getOrDefault( rand, 0 ) + 1 );
 		}
 		
@@ -64,40 +91,34 @@ public class SampleValueHistogram extends ApplicationFrame {
 			
 			dataset.addValue( freq.get(key), "", String.valueOf( key ) );
 		}
-
+		
 		return dataset;
 	}
 	
-	private CategoryDataset createDataseetParteo() {
+	private DefaultCategoryDataset populateDataset( RealDistribution distro ) {
 		
-		ParetoDistribution pareto = new ParetoDistribution( param1, param2 );
 		Map<Long, Integer> freq = new TreeMap<>();
-		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
 		for( int i = 1; i<=numOfSample; i++) {
 			
-			long rand = Math.round( pareto.sample() ) % numOfFile;
-			
+			long rand = Math.round( distro.sample() ) % numOfFile;
+			if( rand < 0 ) rand *= -1;
 			freq.put( rand, freq.getOrDefault( rand, 0 ) + 1 );
 		}
 		
-		for( Long key : freq.keySet() ) {
+		for( long key : freq.keySet() ) {
 			
 			dataset.addValue( freq.get(key), "", String.valueOf( key ) );
 		}
-
+		
 		return dataset;
 	}
-
+	
 	private void draw( Distribution distribution ) {
 
-		CategoryDataset dataset = null; 
-		
-		if( distribution == Distribution.Pareto )
-			dataset = createDataseetParteo();
-		else if( distribution == Distribution.Zipf )
-			dataset = createDataset();
-		
+		CategoryDataset dataset = createDataset( distribution );
+
 		JFreeChart barChart = ChartFactory.createBarChart( distribution.name(), "File Id", "Num Of Download", dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		ChartPanel chartPanel = new ChartPanel(barChart);
