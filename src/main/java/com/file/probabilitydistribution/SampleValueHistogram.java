@@ -110,13 +110,16 @@ public class SampleValueHistogram extends ApplicationFrame {
 		domainAxis.setUpperMargin( 0 );
 		
 		setContentPane(chartPanel);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 	}
 	
 	@Override
 	public void windowClosing(WindowEvent e) {
 		
-		frame.setVisible( true );
+		if( frame != null )
+			frame.setVisible( true );
+		
 		this.dispose();
 	}
 

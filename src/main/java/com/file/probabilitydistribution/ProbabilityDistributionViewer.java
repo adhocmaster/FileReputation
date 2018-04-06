@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -81,6 +82,7 @@ public class ProbabilityDistributionViewer {
 		frame.getContentPane().add(lblSelecttParam);
 		
 		param1 = new JTextField();
+		param1.setText("1");
 		param1.setBounds(208, 42, 86, 20);
 		frame.getContentPane().add(param1);
 		param1.setColumns(10);
@@ -91,6 +93,7 @@ public class ProbabilityDistributionViewer {
 		frame.getContentPane().add(lblSelectndParam);
 		
 		param2 = new JTextField();
+		param2.setText("1");
 		param2.setColumns(10);
 		param2.setBounds(208, 76, 86, 20);
 		frame.getContentPane().add(param2);
@@ -101,6 +104,7 @@ public class ProbabilityDistributionViewer {
 		frame.getContentPane().add(lblSelectNumberOf);
 		
 		numOfSamples = new JTextField();
+		numOfSamples.setText("1000");
 		numOfSamples.setColumns(10);
 		numOfSamples.setBounds(208, 110, 86, 20);
 		frame.getContentPane().add(numOfSamples);
@@ -111,6 +115,7 @@ public class ProbabilityDistributionViewer {
 		frame.getContentPane().add(lblSelectNumberOf_1);
 		
 		numOfFile = new JTextField();
+		numOfFile.setText("100");
 		numOfFile.setColumns(10);
 		numOfFile.setBounds(208, 142, 86, 20);
 		frame.getContentPane().add(numOfFile);
@@ -130,6 +135,16 @@ public class ProbabilityDistributionViewer {
 					Integer numFile = Integer.parseInt( numOfFile.getText() );
 					Integer numSample = Integer.parseInt( numOfSamples.getText() );
 					
+					if( numFile < 0 )
+						throw new Exception( "Number of file can't be less then 0" );
+					else if( numSample < 0 )
+						throw new Exception( "Number of sample can't be less then 0" );
+					else if( p1 < 0 )
+						throw new Exception( "Parameter 1 can't be less then 0" );
+					else if( p2 < 0 )
+						throw new Exception( "Parameter 2 can't be less then 0" );
+					
+					
 					SampleValueHistogram chart = new SampleValueHistogram( "Download frequency", distribution, frame, p1, p2, numFile, numSample );
 					chart.pack();
 					RefineryUtilities.centerFrameOnScreen(chart);
@@ -139,9 +154,12 @@ public class ProbabilityDistributionViewer {
 				}
 				catch( NumberFormatException ex ) {
 					
-					System.out.println( "Number format exception" );
+					JOptionPane.showMessageDialog(frame, "Please enter valid number in textbox", "Number format error", JOptionPane.ERROR_MESSAGE, null );
 				}
-				
+				catch( Exception ex ) {
+					
+					JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE, null );
+				}
 				
 			}
 		});
