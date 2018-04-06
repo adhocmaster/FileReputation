@@ -24,7 +24,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
-import javax.swing.Action;
 import java.awt.event.ActionListener;
 
 public class ProbabilityDistributionViewer {
@@ -60,6 +59,7 @@ public class ProbabilityDistributionViewer {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -121,58 +121,46 @@ public class ProbabilityDistributionViewer {
 		frame.getContentPane().add(numOfFile);
 		
 		JButton draw = new JButton("Draw");
-		draw.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
+		draw.addActionListener( (e) -> {
+			try {
 				
-				try {
-					
-					Distribution distribution = (Distribution) distro.getSelectedItem();
-					
-					Double p1 = Double.parseDouble( param1.getText() ); 
-					Double p2 = Double.parseDouble( param2.getText() );
-					
-					Integer numFile = Integer.parseInt( numOfFile.getText() );
-					Integer numSample = Integer.parseInt( numOfSamples.getText() );
-					
-					if( numFile < 0 )
-						throw new Exception( "Number of file can't be less then 0" );
-					else if( numSample < 0 )
-						throw new Exception( "Number of sample can't be less then 0" );
-					else if( p1 < 0 )
-						throw new Exception( "Parameter 1 can't be less then 0" );
-					else if( p2 < 0 )
-						throw new Exception( "Parameter 2 can't be less then 0" );
-					
-					
-					SampleValueHistogram chart = new SampleValueHistogram( "Download frequency", distribution, frame, p1, p2, numFile, numSample );
-					chart.pack();
-					RefineryUtilities.centerFrameOnScreen(chart);
-					chart.setVisible(true);
-					frame.setVisible( false );
-					
-				}
-				catch( NumberFormatException ex ) {
-					
-					JOptionPane.showMessageDialog(frame, "Please enter valid number in textbox", "Number format error", JOptionPane.ERROR_MESSAGE, null );
-				}
-				catch( Exception ex ) {
-					
-					JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE, null );
-				}
+				Distribution distribution = (Distribution) distro.getSelectedItem();
+				
+				Double p1 = Double.parseDouble( param1.getText() ); 
+				Double p2 = Double.parseDouble( param2.getText() );
+				
+				Integer numFile = Integer.parseInt( numOfFile.getText() );
+				Integer numSample = Integer.parseInt( numOfSamples.getText() );
+				
+				if( numFile < 0 )
+					throw new Exception( "Number of file can't be less then 0" );
+				else if( numSample < 0 )
+					throw new Exception( "Number of sample can't be less then 0" );
+				else if( p1 < 0 )
+					throw new Exception( "Parameter 1 can't be less then 0" );
+				else if( p2 < 0 )
+					throw new Exception( "Parameter 2 can't be less then 0" );
+				
+				
+				SampleValueHistogram chart = new SampleValueHistogram( "Download frequency", distribution, frame, p1, p2, numFile, numSample );
+				chart.pack();
+				RefineryUtilities.centerFrameOnScreen(chart);
+				chart.setVisible(true);
+				frame.setVisible( false );
 				
 			}
+			catch( NumberFormatException ex ) {
+				
+				JOptionPane.showMessageDialog(frame, "Please enter valid number in textbox", "Number format error", JOptionPane.ERROR_MESSAGE, null );
+			}
+			catch( Exception ex ) {
+				
+				JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE, null );
+			}
 		});
+		
 		draw.setBounds(205, 173, 91, 23);
 		frame.getContentPane().add(draw);
 		RefineryUtilities.centerFrameOnScreen(frame);
-	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
 	}
 }
