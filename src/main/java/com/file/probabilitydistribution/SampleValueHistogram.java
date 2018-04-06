@@ -81,7 +81,7 @@ public class SampleValueHistogram extends ApplicationFrame {
 		else if( distribution == Distribution.Zipf )
 			dataset = createDataset();
 		
-		JFreeChart barChart = ChartFactory.createBarChart( "Zipf", "Category", "Score", dataset, PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart barChart = ChartFactory.createBarChart( distribution.name(), "File Id", "Num Of Download", dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		ChartPanel chartPanel = new ChartPanel(barChart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
@@ -91,7 +91,7 @@ public class SampleValueHistogram extends ApplicationFrame {
 
 	public static void main(String[] args) {
 
-		SampleValueHistogram chart = new SampleValueHistogram( "Data frequency", Distribution.Zipf );
+		SampleValueHistogram chart = new SampleValueHistogram( "Download frequency", Distribution.Zipf );
 		chart.createDataset();
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);
