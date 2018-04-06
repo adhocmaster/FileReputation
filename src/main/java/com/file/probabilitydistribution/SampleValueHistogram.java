@@ -1,8 +1,11 @@
 package com.file.probabilitydistribution;
 
 import java.awt.Font;
+import java.awt.event.WindowEvent;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.swing.JFrame;
 
 import org.apache.commons.math3.distribution.ParetoDistribution;
 import org.apache.commons.math3.distribution.ZipfDistribution;
@@ -19,13 +22,13 @@ import org.jfree.ui.RefineryUtilities;
 public class SampleValueHistogram extends ApplicationFrame {
 
 	private static final long serialVersionUID = 1L;
-
-	private enum Distribution{
-		Pareto, Zipf
-	}
 	
-	private static final int numOfFile = 100;
-	private static final int numOfSample = 1000;
+	private static int numOfFile = 100;
+	private static int numOfSample = 1000;
+	private static double param1 = 1;
+	private static double param2 = 2;
+	private static JFrame frame = null;
+	
 	
 	public SampleValueHistogram( String applicationTitle, Distribution distribution ) {
 
@@ -33,9 +36,21 @@ public class SampleValueHistogram extends ApplicationFrame {
 		draw( distribution );
 	}
 
+	public SampleValueHistogram( String applicationTitle, Distribution distribution, JFrame frame, double param1, double param2, int numOfFile, int numOfSample ) {
+
+		this( applicationTitle, distribution );
+		this.frame = frame;
+		this.param1 = param1;
+		this.param2 = param2;
+		this.numOfFile = numOfFile;
+		this.numOfSample = numOfSample;
+		
+		draw( distribution );
+	}
+
 	private CategoryDataset createDataset() {
 		
-		ZipfDistribution zipf = new ZipfDistribution( numOfFile, 1 );
+		ZipfDistribution zipf = new ZipfDistribution( numOfFile, param2 );
 		Map<Integer, Integer> freq = new TreeMap<>();
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
@@ -55,7 +70,7 @@ public class SampleValueHistogram extends ApplicationFrame {
 	
 	private CategoryDataset createDataseetParteo() {
 		
-		ParetoDistribution pareto = new ParetoDistribution( 1, 2 );
+		ParetoDistribution pareto = new ParetoDistribution( param1, param2 );
 		Map<Long, Integer> freq = new TreeMap<>();
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
@@ -97,11 +112,17 @@ public class SampleValueHistogram extends ApplicationFrame {
 		setContentPane(chartPanel);
 
 	}
+	
+	@Override
+	public void windowClosing(WindowEvent e) {
+		
+		frame.setVisible( true );
+		this.dispose();
+	}
 
 	public static void main(String[] args) {
 
 		SampleValueHistogram chart = new SampleValueHistogram( "Download frequency", Distribution.Zipf );
-		chart.createDataset();
 		chart.pack();
 		RefineryUtilities.centerFrameOnScreen(chart);
 		chart.setVisible(true);
