@@ -22,6 +22,10 @@ public class FileInfoRepositoryTest {
 	@Value("${file_rating.NoOfFileType}")
 	int NoOfFileType;
 	
+	@Value("${file_rating.NoOfFile}")
+	int NoOfFiles;
+	
+	
 	@Autowired
 	FileInfoRepository fileInfoRepository;
 	@Autowired
@@ -30,7 +34,6 @@ public class FileInfoRepositoryTest {
 	@Test
 	public void testCreateFile() {
 
-		long NoOfFiles = 500;
 		Random random = new Random();
 		for(int i = 0; i< NoOfFiles; i++){
 			User user = userRepository.getOne((long)Math.ceil(NoOfUser * random.nextDouble()));

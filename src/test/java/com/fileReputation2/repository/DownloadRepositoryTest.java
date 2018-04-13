@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fileReputation2.model.Download;
 import com.fileReputation2.model.FileInfo;
@@ -15,7 +16,7 @@ import com.fileReputation2.model.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-
+@Transactional
 public class DownloadRepositoryTest {
 
 	
@@ -24,6 +25,9 @@ public class DownloadRepositoryTest {
 
 	@Value("${file_rating.NoOfFileType}")
 	int NoOfFileType;
+
+	@Value("${file_rating.NoOfFile}")
+	int NoOfFiles;
 	
 	@Autowired
 	FileInfoRepository fileInfoRepository;
@@ -35,19 +39,22 @@ public class DownloadRepositoryTest {
 	@Test
 	public void testCreateDownloadFile() {
 
-		long NoOfFiles = 500;
 		int MaxNoDownload = 25;
 		Random random = new Random();
 		for (long i = 1; i <= NoOfFiles; i++) {
 			
 			FileInfo fileInfo = fileInfoRepository.getOne(i);
-			long noOfDownload = (long) Math.ceil(MaxNoDownload * random.nextDouble());
+			long noOfDownload = MaxNoDownload;
 			
 			for (long j = 1; j <= noOfDownload; j++) {
 				
 				User user = userRepository.getOne( (long) Math.ceil( NoOfUser * random.nextDouble()) );
-				Download download = new Download(null, fileInfo, user);
+				
+				double currentReputation = random.nextDouble();
+				Download download = new Download(null, fileInfo, user,currentReputation);
+				fileInfo.setFileReputation(currentReputation);
 				downloadRepository.save(download);
+				fileInfoRepository.save(fileInfo);
 				
 			}
 

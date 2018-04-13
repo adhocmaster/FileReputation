@@ -18,7 +18,7 @@ public class FileInfo {
 	}
 	
 	
-	public FileInfo(Long id, String fileName, Float fileReputation, String fileType, User uploader, Float keywordRelevance) {
+	public FileInfo(Long id, String fileName, double fileReputation, String fileType, User uploader, Float keywordRelevance) {
 		super();
 		this.id = id;
 		this.fileName = fileName;
@@ -37,7 +37,7 @@ public class FileInfo {
 	private String fileName;
 
 	@Column( name = "FileReputation")
-	private Float fileReputation;
+	private double fileReputation;
 	
 	@Column ( name = "keywordRelevance")
 	private float keywordRelevance;
@@ -69,12 +69,12 @@ public class FileInfo {
 	}
 
 
-	public Float getFileReputation() {
+	public double getFileReputation() {
 		return fileReputation;
 	}
 
 
-	public void setFileReputation(Float fileReputation) {
+	public void setFileReputation(double fileReputation) {
 		this.fileReputation = fileReputation;
 	}
 

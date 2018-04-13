@@ -11,12 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fileReputation2.model.FileInfo;
+import com.fileReputation2.model.User;
 
 import org.apache.commons.math3.distribution.ZipfDistribution;
 @RunWith(SpringRunner.class)
 @SpringBootTest
+
+@Transactional
 public class DownloadFileTest {
 	private Random random;
 	private int noOfDownload = 100;
@@ -35,19 +39,24 @@ public class DownloadFileTest {
 	FileInfoRepository fileInfoRepository;
 	
 	@Autowired
-	UserRepository UserRepository;
+	UserRepository userRepository;
 	
 	@Autowired
 	DownloadRepository downloadRepository;
 	
 	@Test
 	public void testFileDownload(){
+		
+		Random random = new Random();
 		List<FileInfo> fileInfoList = new ArrayList<FileInfo>();
 		fileInfoList = fileInfoRepository.findAllByOrderByFileReputationDesc();
 		zipfDistribution = new ZipfDistribution(fileInfoList.size(), exponent);
-		int[]sampleIndexes = zipfDistribution.sample(1000);
-		for(int i=0; i<sampleIndexes.length; i++) {
-			System.out.println(sampleIndexes[i] + " ");
+		int[]fileIndexes = zipfDistribution.sample(1000);
+		for(int i=0; i<fileIndexes.length; i++) {
+			FileInfo currentDownloadedFile = fileInfoList.get(fileIndexes[i]-1);
+			User user = userRepository.getOne( (long) Math.ceil( NoOfUser * random.nextDouble()) );
+			
+			
 		}
 		
 		
