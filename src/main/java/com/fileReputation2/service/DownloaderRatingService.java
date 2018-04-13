@@ -23,7 +23,7 @@ public class DownloaderRatingService {
 	private float getUserReputation(long id,float currentDownloadFileReputation){
 		User user = userRepository.findOne(id);
 		List<FileInfo> downloadedFileList = new ArrayList<FileInfo>();
-		downloadedFileList = fileInfoRepository.findByDownloader(user);
+		downloadedFileList = fileInfoRepository.findByUploader(user);
 		float sumOfFileReputation = 0;
 		for(int i = 0; i< downloadedFileList.size(); i++){
 			FileInfo fileInfo = downloadedFileList.get(i);

@@ -2,6 +2,8 @@ package com.fileReputation2.repository;
 
 import java.util.List;
 
+import javax.persistence.OrderBy;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fileReputation2.model.FileInfo;
@@ -11,6 +13,10 @@ public interface FileInfoRepository extends JpaRepository<FileInfo, Long>{
 
 	List<FileInfo> findByFileType(String FileType);
 	
-	List<FileInfo> findByDownloader(User user);
+	List<FileInfo> findByUploader(User user);
+	
+	
+	List<FileInfo> findAllByOrderByFileReputationDesc();
+	
 	
 }
