@@ -10,6 +10,6 @@ import com.fileReputation2.model.User;
 
 public interface DownloadRepository extends JpaRepository<Download, Long> {
 	
-	List<Download> findByDownloader(User user);
+	List<Download> findAllByUserId(Long userId);
 
 }
