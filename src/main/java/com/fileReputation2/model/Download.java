@@ -16,7 +16,10 @@ public class Download {
 	private Long fileId;
 	private Long userId;
 	private double fileReputation;
+	private int testCycleNo;
 	
+	
+
 	public Download(Long id, Long fileId, Long userId) {
 		super();
 		this.id = id;
@@ -32,6 +35,15 @@ public class Download {
 		this.fileReputation = fileReputation;
 	}
 
+
+	public Download(Long id, Long fileId, Long userId, double fileReputation, int testCycleNo){
+		super();
+		this.id = id;
+		this.fileId = fileId;
+		this.userId = userId;
+		this.fileReputation = fileReputation;
+		this.testCycleNo = testCycleNo;
+	}
 	public Download() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -69,5 +81,11 @@ public class Download {
 		this.fileReputation = fileReputation;
 	}
 
+	public int getTestCycleNo() {
+		return testCycleNo;
+	}
 
+	public void setTestCycleNo(int testCycleNo) {
+		this.testCycleNo = testCycleNo;
+	}
 }

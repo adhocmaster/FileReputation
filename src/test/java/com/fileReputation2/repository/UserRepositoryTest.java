@@ -18,6 +18,9 @@ public class UserRepositoryTest {
 	@Value("${file_rating.NoOfUser}")
 	int NoOfUser;
 	
+	@Value("${file_rating.NoOfKnowledgeableUser}")
+	int NoOfKnowledgeableUser;
+	
 	@Autowired
 	UserRepository userRepository;
 
@@ -25,9 +28,18 @@ public class UserRepositoryTest {
 	public void testCreate1User() {
 		
 	
+		int count = NoOfKnowledgeableUser;
 		for(int i = 0;i < NoOfUser; i++){
-			User user = new User( null, "User_" + i );
-			userRepository.save( user );
+			if(count > 0) {
+				User user = new User( null, "User_" + i,true );
+				userRepository.save( user );
+				count--;
+			}
+			else {
+				User user = new User( null, "User_" + i,false );
+				userRepository.save( user );
+			}
+			
 		}
 
 		

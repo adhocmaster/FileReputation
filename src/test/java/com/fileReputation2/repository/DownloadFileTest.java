@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fileReputation2.model.Download;
 import com.fileReputation2.model.FileInfo;
 import com.fileReputation2.model.User;
+import com.fileReputation2.util.CalculateFileReputation;
 
 import org.apache.commons.math3.distribution.ZipfDistribution;
 
@@ -50,23 +51,20 @@ public class DownloadFileTest {
 	public void testFileDownload() {
 
 		Random random = new Random();
+		int testCycleNo = 1;
 		List<FileInfo> fileInfoList = new ArrayList<FileInfo>();
 		fileInfoList = fileInfoRepository.findAllByOrderByFileReputationDesc();
 		zipfDistribution = new ZipfDistribution(fileInfoList.size(), exponent);
 		int[] fileIndexes = zipfDistribution.sample(100000);
 		for (int i = 0; i < fileIndexes.length; i++) {
 			FileInfo currentDownloadedFile = fileInfoList.get(fileIndexes[i] - 1);
-			User user = userRepository.getOne((long) Math.ceil(NoOfUser * random.nextDouble()));
-			List<Download> fileDownloadedByUser = downloadRepository.findAllByUserId(user.getId());
-
-			double R_D = calculateR_D(fileDownloadedByUser);
-			double R_PREV = currentDownloadedFile.getFileReputation();
-			double R_AFTER = R_PREV * R_PREV + (1 - R_PREV ) * R_D;
+			User user = userRepository.getOne((long) Math.ceil(NoOfUser * random.nextDouble()));	
 			
+			double R_AFTER = CalculateFileReputation.calculateFileReputation(currentDownloadedFile, user);
 			currentDownloadedFile.setFileReputation(R_AFTER);
 			fileInfoRepository.save(currentDownloadedFile);
-
-			Download download = new Download(null, currentDownloadedFile.getId(), user.getId(), R_AFTER);
+			
+			Download download = new Download(null, currentDownloadedFile.getId(), user.getId(), R_AFTER,testCycleNo);
 			downloadRepository.save(download);
 			
 
@@ -74,15 +72,5 @@ public class DownloadFileTest {
 
 	}
 
-	public double calculateR_D(List<Download> fileDownloadedByUser) {
-
-		double sumOfFileReputatio = 0;
-		for (int i = 0; i < fileDownloadedByUser.size(); i++) {
-			Download download = fileDownloadedByUser.get(i);
-			sumOfFileReputatio += download.getFileReputation();
-		}
-
-		return sumOfFileReputatio / fileDownloadedByUser.size();
-	}
 
 }

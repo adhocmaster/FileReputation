@@ -55,7 +55,7 @@ public class DownloadRepositoryTest {
 				fileInfo.setFileReputation(currentReputation);
 				fileInfoRepository.save(fileInfo);
 
-				Download download = new Download(null, fileInfo.getId(), user.getId(), currentReputation);
+				Download download = new Download(null, fileInfo.getId(), user.getId(), currentReputation,0);
 				downloadRepository.save(download);
 			}
 

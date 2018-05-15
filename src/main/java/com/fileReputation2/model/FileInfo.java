@@ -1,5 +1,9 @@
 package com.fileReputation2.model;
 
+import java.util.GregorianCalendar;
+import java.util.Random;
+
+import com.fileReputation2.util.RadomDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +30,12 @@ public class FileInfo {
 		this.fileType = fileType;
 		this.uploader = uploader;
 		this.keywordRelevance = keywordRelevance;
+		this.noOfDownloads = 0;
+		this.uploadDate = RadomDate.getRandomDate();
+		/* if next double return is greater then 0.5, consider it as 1 
+		 * fileQuality = 1 indicates that file is good
+		 * fileQuality = 0 indicates that file is bad*/
+		this.fileQuality = new Random().nextDouble() > 0.5 ? 1 : 0;
 	}
 
 
@@ -46,9 +56,20 @@ public class FileInfo {
 	@Column( name = "FileType")
 	private String fileType;
 	
+	@Column(name = "NoOfDownloads")
+	private long noOfDownloads; 
+	
+	@Column(name  = "UploadDate")
+	private GregorianCalendar uploadDate;
+	
+	@Column(name = "FileQuality")
+	private int fileQuality;
+	
 	@ManyToOne
 	private User uploader;
 
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -107,6 +128,34 @@ public class FileInfo {
 	public void setUploader(User uploader) {
 		this.uploader = uploader;
 	}
-	
+
+	public long getNoOfDownloads() {
+		return noOfDownloads;
+	}
+
+
+	public void setNoOfDownloads(long noOfDownloads) {
+		this.noOfDownloads = noOfDownloads;
+	}
+
+
+	public GregorianCalendar getUploadDate() {
+		return uploadDate;
+	}
+
+
+	public void setUploadDate(GregorianCalendar uploadDate) {
+		this.uploadDate = uploadDate;
+	}
+
+
+	public int getFileQuality() {
+		return fileQuality;
+	}
+
+
+	public void setFileQuality(int fileQuality) {
+		this.fileQuality = fileQuality;
+	}
 	
 }

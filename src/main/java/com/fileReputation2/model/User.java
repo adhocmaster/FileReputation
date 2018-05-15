@@ -17,6 +17,7 @@ public class User {
 	private String name;
 	
 	private String userReputation;
+	private boolean isKnowledgeableUser;
 
 	public User() {
 		super();
@@ -36,6 +37,19 @@ public class User {
 		this.userReputation = userReputation;
 	}
 
+	public User(Long id, String name, boolean isKnowledgeableUser) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.isKnowledgeableUser = isKnowledgeableUser;
+	}
+	public User(Long id, String name, String userReputation,boolean isKnowledgeableUser) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.userReputation = userReputation;
+		this.isKnowledgeableUser = isKnowledgeableUser;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -58,6 +72,14 @@ public class User {
 
 	public void setUserReputation(String userReputation) {
 		this.userReputation = userReputation;
+	}
+
+	public boolean isKnowledgeableUser() {
+		return isKnowledgeableUser;
+	}
+
+	public void setKnowledgeableUser(boolean isKnowledgeableUser) {
+		this.isKnowledgeableUser = isKnowledgeableUser;
 	}
 	
 	
