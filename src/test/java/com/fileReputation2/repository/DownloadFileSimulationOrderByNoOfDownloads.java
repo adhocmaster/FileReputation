@@ -1,30 +1,23 @@
 package com.fileReputation2.repository;
 
-import java.io.Console;
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-import java.util.List;
+import org.apache.commons.math3.distribution.ZipfDistribution;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fileReputation2.model.Download;
 import com.fileReputation2.model.FileInfo;
 import com.fileReputation2.model.User;
 import com.fileReputation2.util.CalculateFileReputation;
 
-import org.apache.commons.math3.distribution.ZipfDistribution;
+public class DownloadFileSimulationOrderByNoOfDownloads {
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-
-
-public class DownloadFileTest {
 	private Random random;
 	private int noOfDownload = 100;
 
@@ -46,14 +39,13 @@ public class DownloadFileTest {
 
 	@Autowired
 	DownloadRepository downloadRepository;
-
+	
 	@Test
-	public void testFileDownload() {
-
+	public void test() {
 		Random random = new Random();
 		int testCycleNo = 1;
 		List<FileInfo> fileInfoList = new ArrayList<FileInfo>();
-		fileInfoList = fileInfoRepository.findAllByOrderByFileReputationDesc();
+		fileInfoList = fileInfoRepository.findAllByOrderByNoOfDownloadsDesc();
 		zipfDistribution = new ZipfDistribution(fileInfoList.size(), exponent);
 		int[] fileIndexes = zipfDistribution.sample(100000);
 		for (int i = 0; i < fileIndexes.length; i++) {
@@ -69,8 +61,6 @@ public class DownloadFileTest {
 			
 
 		}
-
 	}
-
 
 }

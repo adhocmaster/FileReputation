@@ -29,7 +29,7 @@ public class UserRepositoryTest {
 		
 	
 		int count = NoOfKnowledgeableUser;
-		for(int i = 0;i < NoOfUser; i++){
+		for(int i = 1;i <= NoOfUser; i++){
 			if(count > 0) {
 				User user = new User( null, "User_" + i,true );
 				userRepository.save( user );

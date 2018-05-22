@@ -23,12 +23,30 @@ public class CalculateFileReputation {
 	}
 	public static double calculateR_D(List<Download> fileDownloadedByUser) {
 
-		double sumOfFileReputatio = 0;
+		double sumOfFileReputation = 0;
 		for (int i = 0; i < fileDownloadedByUser.size(); i++) {
 			Download download = fileDownloadedByUser.get(i);
-			sumOfFileReputatio += download.getFileReputation();
+			sumOfFileReputation += download.getFileReputation();
 		}
 
-		return sumOfFileReputatio / fileDownloadedByUser.size();
+		return sumOfFileReputation / fileDownloadedByUser.size();
+	}
+	
+	public static double calcluateW_DRBasedOnNoOfDownloads(FileInfo file, User downloader) {
+		int noOfPreviousDownloads = downloadRepository.findAllByUserId(downloader.getId()).size() ;
+		double W_DR = noOfPreviousDownloads/(noOfPreviousDownloads + 1);
+		
+		return W_DR;
+	}
+	
+	public static double calcluateW_DRBasedOnPreviousRating(FileInfo file, User downloader) {
+		double W_DR = file.getFileReputation();
+		return W_DR;
+	}
+	public static double calculateW_DRBasedOnTimePeriod(FileInfo file, User downloader) {
+		return 0;
+	}
+	public static double calculateW_DRBasedOnPreviousRating(FileInfo file, User downloader) {
+		return 0;
 	}
 }

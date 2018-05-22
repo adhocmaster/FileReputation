@@ -17,6 +17,8 @@ public interface FileInfoRepository extends JpaRepository<FileInfo, Long>{
 	
 	
 	List<FileInfo> findAllByOrderByFileReputationDesc();
+	List<FileInfo> findAllByOrderByUploadDateDesc();
+	List<FileInfo> findAllByOrderByNoOfDownloadsDesc();
 	
 	
 }

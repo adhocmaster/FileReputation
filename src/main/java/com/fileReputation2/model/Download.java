@@ -1,5 +1,7 @@
 package com.fileReputation2.model;
 
+import java.util.GregorianCalendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +15,13 @@ public class Download {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	private Long fileId;
 	private Long userId;
-	private double fileReputation;
+	private double previousFileReputation;
+	private double afterFileReputation;
 	private int testCycleNo;
-	
+	private GregorianCalendar fileDownloadDate;
 	
 
 	public Download(Long id, Long fileId, Long userId) {
@@ -41,7 +45,7 @@ public class Download {
 		this.id = id;
 		this.fileId = fileId;
 		this.userId = userId;
-		this.fileReputation = fileReputation;
+		this.previousFileReputation = fileReputation;
 		this.testCycleNo = testCycleNo;
 	}
 	public Download() {
@@ -74,7 +78,7 @@ public class Download {
 	}
 
 	public double getFileReputation() {
-		return fileReputation;
+		return prefileReputation;
 	}
 
 	public void setFileReputation(double fileReputation) {
@@ -88,4 +92,13 @@ public class Download {
 	public void setTestCycleNo(int testCycleNo) {
 		this.testCycleNo = testCycleNo;
 	}
+
+	public GregorianCalendar getFileDownloadDate() {
+		return fileDownloadDate;
+	}
+
+	public void setFileDownloadDate(GregorianCalendar fileDownloadDate) {
+		this.fileDownloadDate = fileDownloadDate;
+	}
+	
 }
