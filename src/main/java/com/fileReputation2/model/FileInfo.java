@@ -3,7 +3,7 @@ package com.fileReputation2.model;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-import com.fileReputation2.util.RadomDate;
+import com.fileReputation2.util.RandomDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +22,8 @@ public class FileInfo {
 	}
 	
 	
-	public FileInfo(Long id, String fileName, double fileReputation, String fileType, User uploader, Float keywordRelevance) {
+	public FileInfo(Long id, String fileName, double fileReputation, String fileType, User uploader, Float keywordRelevance,
+			GregorianCalendar uploadDate, int fileQuality) {
 		super();
 		this.id = id;
 		this.fileName = fileName;
@@ -31,11 +32,12 @@ public class FileInfo {
 		this.uploader = uploader;
 		this.keywordRelevance = keywordRelevance;
 		this.noOfDownloads = 0;
-		this.uploadDate = RadomDate.getRandomDate();
+		this.uploadDate = uploadDate;
 		/* if next double return is greater then 0.5, consider it as 1 
 		 * fileQuality = 1 indicates that file is good
 		 * fileQuality = 0 indicates that file is bad*/
-		this.fileQuality = new Random().nextDouble() > 0.5 ? 1 : 0;
+		this.fileQuality = fileQuality;
+//				new Random().nextDouble() > 0.5 ? 1 : 0;
 	}
 
 

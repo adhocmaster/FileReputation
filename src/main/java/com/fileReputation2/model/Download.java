@@ -18,8 +18,8 @@ public class Download {
 	
 	private Long fileId;
 	private Long userId;
-	private double previousFileReputation;
-	private double afterFileReputation;
+	private double oldFileReputation;
+	private double newFileReputation;
 	private int testCycleNo;
 	private GregorianCalendar fileDownloadDate;
 	
@@ -31,22 +31,25 @@ public class Download {
 		this.userId = userId;
 	}
 	
-	public Download(Long id, Long fileId, Long userId, double fileReputation){
+	public Download(Long id, Long fileId, Long userId, double oldFileReputation, double newFileReputation){
 		super();
 		this.id = id;
 		this.fileId = fileId;
 		this.userId = userId;
-		this.fileReputation = fileReputation;
+		this.oldFileReputation = oldFileReputation;
+		this.newFileReputation = newFileReputation;
 	}
 
 
-	public Download(Long id, Long fileId, Long userId, double fileReputation, int testCycleNo){
+	public Download(Long id, Long fileId, Long userId, double oldFileReputation,double newFileReputation, int testCycleNo, GregorianCalendar fileDownloadDate){
 		super();
 		this.id = id;
 		this.fileId = fileId;
 		this.userId = userId;
-		this.previousFileReputation = fileReputation;
+		this.oldFileReputation = oldFileReputation;
+		this.newFileReputation = newFileReputation;
 		this.testCycleNo = testCycleNo;
+		this.fileDownloadDate = fileDownloadDate;
 	}
 	public Download() {
 		super();
@@ -77,14 +80,6 @@ public class Download {
 		this.userId = userId;
 	}
 
-	public double getFileReputation() {
-		return prefileReputation;
-	}
-
-	public void setFileReputation(double fileReputation) {
-		this.fileReputation = fileReputation;
-	}
-
 	public int getTestCycleNo() {
 		return testCycleNo;
 	}
@@ -99,6 +94,22 @@ public class Download {
 
 	public void setFileDownloadDate(GregorianCalendar fileDownloadDate) {
 		this.fileDownloadDate = fileDownloadDate;
+	}
+
+	public double getOldFileReputation() {
+		return oldFileReputation;
+	}
+
+	public void setOldFileReputation(double oldFileReputation) {
+		this.oldFileReputation = oldFileReputation;
+	}
+
+	public double getNewFileReputation() {
+		return newFileReputation;
+	}
+
+	public void setNewFileReputation(double newFileReputation) {
+		this.newFileReputation = newFileReputation;
 	}
 	
 }

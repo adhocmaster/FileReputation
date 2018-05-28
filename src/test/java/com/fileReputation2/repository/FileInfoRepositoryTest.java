@@ -1,5 +1,6 @@
 package com.fileReputation2.repository;
 
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fileReputation2.model.FileInfo;
 import com.fileReputation2.model.User;
+import com.fileReputation2.util.RandomDate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -40,6 +42,9 @@ public class FileInfoRepositoryTest {
 			double reputation = random.nextDouble();
 			String fileType = Integer.toString((int) Math.ceil(NoOfFileType * random.nextDouble()));
 			float keywordRelevance = (float)(random.nextDouble());
+			
+			GregorianCalendar fileUploadDate = RandomDate.getRandomDate(2016, 2018);
+			
 			FileInfo fileInfo = new FileInfo(null,"file_"+i,(float)reputation,fileType,user,keywordRelevance);
 			fileInfoRepository.save( fileInfo );
 		}

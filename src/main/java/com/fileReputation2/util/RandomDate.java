@@ -2,8 +2,8 @@ package com.fileReputation2.util;
 
 import java.util.GregorianCalendar;
 
-public class RadomDate {
-	public static GregorianCalendar getRandomDate() {
+public class RandomDate {
+	public static GregorianCalendar getRandomDate(int start, int end) {
 		GregorianCalendar gc = new GregorianCalendar();
         int year = randBetween(2016, 2018);
         gc.set(gc.YEAR, year);

@@ -42,10 +42,12 @@ public class DownloadRepositoryTest {
 
 		int MaxNoDownload = 25;
 		Random random = new Random();
+		
+		int testCycleNo = 0;
 		for (long i = 1; i <= NoOfFiles; i++) {
 
 			FileInfo fileInfo = fileInfoRepository.getOne(i);
-			long noOfDownload = MaxNoDownload;
+			long noOfDownload = (long)Math.ceil(MaxNoDownload * random.nextDouble());
 
 			for (long j = 1; j <= noOfDownload; j++) {
 
